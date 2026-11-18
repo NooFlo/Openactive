@@ -2,6 +2,10 @@
 
 Open source outdoor planning and navigation for **hiking and mountain biking**: a web app to plan and review tours on a 3D terrain map, with GPX + description ingestion from tourism sites, and a companion iOS + Apple Watch app for offline navigation in the field.
 
+- **Architecture, API and data model**: [`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)
+- **Rules and handover guidance for AI coding agents**: [`AGENTS.md`](AGENTS.md)
+- **Status**: web MVP works (3D terrain map, ingestion, household accounts, prepare-trip/offline sync endpoints). iOS/watchOS: designed, not started.
+
 ## Status
 
 - **Web MVP (this repo, `app/`)**: MapLibre 3D terrain map + tour ingestion pipeline. Works, under active development.
