@@ -1,1 +1,53 @@
 # Openactive
+
+Open source outdoor planning and navigation for **hiking and mountain biking**: a web app to plan and review tours on a 3D terrain map, with GPX + description ingestion from tourism sites, and a companion iOS + Apple Watch app for offline navigation in the field.
+
+## Status
+
+- **Web MVP (this repo, `app/`)**: MapLibre 3D terrain map + tour ingestion pipeline. Works, under active development.
+- **iOS / watchOS apps**: designed (see below), not yet scaffolded in this repo.
+
+## Web MVP
+
+Stack (chosen deliberately from reliable open source projects):
+
+| Concern | Choice | Why |
+|---|---|---|
+| Framework | Next.js 15 + React 19 (TypeScript) | App/router + API routes for the ingestion endpoint in one project |
+| Map | [MapLibre GL JS](https://maplibre.org/maplibre-gl-js/) (BSD-2) | Open source, GPU vector maps, 3D terrain, hillshade, pitch ~85° |
+| Basemap | [OpenFreeMap](https://openfreemap.org/) `liberty` style | Free vector tiles, no API key, no rate limits |
+| Terrain DEM | AWS Terrain Tiles (terrarium encoding, open data) | Global elevation raster; switchable to self-hosted Mapterhorn/Copernicus later |
+| GPX parsing | `fast-xml-parser` | Fast, zero-dependency XML → track points + elevation/time |
+| Page extraction | `cheerio` + schema.org JSON-LD | Title/description/GPX-link extraction from tourism pages |
+
+### Run
+
+```bash
+npm install
+npm run dev        # http://localhost:3000
+```
+
+### Ingestion pipeline (`POST /api/tours`)
+
+Two modes:
+
+1. **URL** — paste a tourism/tour page URL or a direct `.gpx` URL. The server:
+   - fetches direct GPX, or fetches the HTML and discovers `.gpx` links,
+   - extracts title/description from schema.org JSON-LD (`TouristTrip`, `Route`, `Place`, `Article`), falling back to OpenGraph/meta tags and article containers,
+   - parses the GPX, computes distance/ascent/descent/elevation stats,
+   - saves the tour to `data/tours/<slug>.json`.
+2. **Paste** — paste GPX XML plus optional title/description for files you already have.
+
+Tours: `GET /api/tours` (list) and `GET /api/tours/<slug>` (full record). Storage is file-based JSON for the MVP; the plan is to move to Postgres + PostGIS and PMTiles bundles for offline packaging later.
+
+## iOS + watchOS app (design decisions)
+
+- **iPhone**: Swift/SwiftUI + **MapKit** with an offline raster tile cache (region download as a tile bundle, `MKTileOverlay`; `MKPolyline` for the track). Google/OsmAnd-style vector rendering via MapLibre Native is the fallback option if we need hillshade on-device.
+- **Apple Watch**: **no maps on the watch.** Navigate the GPX track "Backtrack-style": black-background SwiftUI screen with the breadcrumb polyline, current position, heading cone, distance to next waypoint, and wrist-tap haptics on off-route deviation or waypoint approach. Built with MapKit SwiftUI (`Map`, `MapPolyline`, `UserAnnotation`), CoreLocation (`CLHeading`), and a HealthKit/WorkoutKit hiking workout session so background location stays alive with 4G-free battery discipline.
+  - Note: Apple's Compass Backtrack UI has **no public API**; everything above uses only sanctioned frameworks. `WKInterfaceMap` is avoided (MapKit for SwiftUI covers watchOS).
+- **Transfer**: routes + downloaded regions go iPhone → Watch via Watch Connectivity; the watch works standalone (no iPhone in the field).
+- **Sync**: web → phone via signed public tour URLs (GPX + JSON), no accounts. If accounts/backend sync is added later, it is optional.
+
+## License
+
+To be decided (recommend MIT or Apache-2.0 for app code). Do not copy code from GPL-3 projects (e.g., iOS-Open-GPX-Tracker) into this repo; patterns only.
