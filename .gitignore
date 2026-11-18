@@ -1,0 +1,13 @@
+node_modules/
+.next/
+out/
+.env*
+*.tsbuildinfo
+next-env.d.ts
+.DS_Store
+data/.secret*
+data/users.json
+data/tile-cache/
+apple/.build/
+apple/.swiftpm/
+apple/build/

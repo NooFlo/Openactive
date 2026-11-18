@@ -1,0 +1,96 @@
+{
+  "slug": "karwendel-loop-sample",
+  "title": "Karwendel Loop (Sample)",
+  "description": "Sample tour for simulator testing: short Karwendel loop with elevation profile.",
+  "sourceUrl": null,
+  "createdAt": "2026-11-18T11:24:40.608Z",
+  "points": [
+    {
+      "lat": 47.271,
+      "lon": 11.402,
+      "ele": 820,
+      "time": null
+    },
+    {
+      "lat": 47.2742,
+      "lon": 11.4035,
+      "ele": 910,
+      "time": null
+    },
+    {
+      "lat": 47.2768,
+      "lon": 11.4061,
+      "ele": 1150,
+      "time": null
+    },
+    {
+      "lat": 47.2781,
+      "lon": 11.4098,
+      "ele": 1420,
+      "time": null
+    },
+    {
+      "lat": 47.2786,
+      "lon": 11.414,
+      "ele": 1650,
+      "time": null
+    },
+    {
+      "lat": 47.2772,
+      "lon": 11.4182,
+      "ele": 1938,
+      "time": null
+    },
+    {
+      "lat": 47.2744,
+      "lon": 11.4205,
+      "ele": 1802,
+      "time": null
+    },
+    {
+      "lat": 47.2712,
+      "lon": 11.421,
+      "ele": 1601,
+      "time": null
+    },
+    {
+      "lat": 47.2684,
+      "lon": 11.4192,
+      "ele": 1383,
+      "time": null
+    },
+    {
+      "lat": 47.267,
+      "lon": 11.4151,
+      "ele": 1161,
+      "time": null
+    },
+    {
+      "lat": 47.2668,
+      "lon": 11.4104,
+      "ele": 1000,
+      "time": null
+    },
+    {
+      "lat": 47.2681,
+      "lon": 11.4062,
+      "ele": 912,
+      "time": null
+    },
+    {
+      "lat": 47.2696,
+      "lon": 11.403,
+      "ele": 845,
+      "time": null
+    }
+  ],
+  "stats": {
+    "distanceKm": 4.11,
+    "ascentM": 1118,
+    "descentM": 1093,
+    "minEleM": 820,
+    "maxEleM": 1938,
+    "points": 13
+  },
+  "preparedAt": "2026-11-18T11:24:46.735Z"
+}

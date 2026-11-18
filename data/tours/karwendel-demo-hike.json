@@ -1,0 +1,47 @@
+{
+  "slug": "karwendel-demo-hike",
+  "title": "Karwendel Demo Hike",
+  "description": "A demo tour from a pasted GPX file.",
+  "sourceUrl": null,
+  "createdAt": "2026-11-18T07:23:55.953Z",
+  "points": [
+    {
+      "lat": 47.437,
+      "lon": 11.416,
+      "ele": 1070,
+      "time": null
+    },
+    {
+      "lat": 47.4385,
+      "lon": 11.42,
+      "ele": 1130,
+      "time": null
+    },
+    {
+      "lat": 47.441,
+      "lon": 11.429,
+      "ele": 1450,
+      "time": null
+    },
+    {
+      "lat": 47.4423,
+      "lon": 11.44,
+      "ele": 1900,
+      "time": null
+    },
+    {
+      "lat": 47.4401,
+      "lon": 11.448,
+      "ele": 2210,
+      "time": null
+    }
+  ],
+  "stats": {
+    "distanceKm": 2.57,
+    "ascentM": 1140,
+    "descentM": 0,
+    "minEleM": 1070,
+    "maxEleM": 2210,
+    "points": 5
+  }
+}

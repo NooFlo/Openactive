@@ -1,0 +1,113 @@
+:root {
+  --bg: #0d1117;
+  --panel: #161b22;
+  --border: #2d333b;
+  --text: #e6edf3;
+  --muted: #8b949e;
+  --accent: #4ade80;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.maplibregl-ctrl-group {
+  border-radius: 6px !important;
+}
+
+.map-style-picker {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 10;
+  padding: 6px 10px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px;
+  margin-bottom: 20px;
+}
+
+.panel h2 { margin-top: 0; font-size: 15px; }
+
+.tabs { display: flex; gap: 6px; margin-bottom: 12px; }
+
+.tabs button {
+  flex: 1;
+  padding: 6px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--muted);
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.tabs button.active { background: var(--border); color: var(--text); }
+
+label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 10px; }
+
+input, textarea {
+  width: 100%;
+  margin-top: 4px;
+  padding: 8px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 13px;
+}
+
+button[type="submit"] {
+  width: 100%;
+  padding: 9px;
+  background: var(--accent);
+  border: none;
+  border-radius: 6px;
+  color: #052e15;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+button[type="submit"]:disabled { opacity: 0.6; }
+
+.error { color: #ff7b72; font-size: 12px; }
+.success { color: var(--accent); font-size: 12px; }
+.muted { color: var(--muted); font-size: 12px; }
+
+.tour-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 4px; }
+
+.tour-list button {
+  width: 100%;
+  text-align: left;
+  padding: 8px;
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.tour-list button:hover { background: var(--panel); }
+
+.selected-tour { margin-top: 20px; border-top: 1px solid var(--border); padding-top: 14px; font-size: 13px; }
+
+h1 { font-size: 20px; margin: 0; }
+h2 { font-size: 15px; }
