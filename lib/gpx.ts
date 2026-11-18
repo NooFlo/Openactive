@@ -22,6 +22,7 @@ export interface Tour {
   description: string;
   sourceUrl: string | null;
   createdAt: string;
+  preparedAt?: string;
   points: TrackPoint[];
   stats: TourStats;
 }

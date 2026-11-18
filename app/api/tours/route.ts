@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import fs from "node:fs/promises";
 import path from "node:path";
+import { currentUser, unauthorized } from "@/lib/auth";
 import { computeStats, parseGpx, slugify, type Tour } from "@/lib/gpx";
 import { extractFromHtml, fetchText } from "@/lib/extract";
 
@@ -26,6 +27,8 @@ async function saveTour(tour: Tour): Promise<Tour> {
 }
 
 export async function GET() {
+  const user = await currentUser();
+  if (!user) return unauthorized();
   const files = await fs.readdir(DATA_DIR).catch(() => [] as string[]);
   const tours = await Promise.all(
     files
@@ -36,6 +39,8 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  const user = await currentUser();
+  if (!user) return unauthorized();
   let body: {
     url?: string;
     gpx?: string;

@@ -3,6 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "setup": "node scripts/generate-secret.mjs",
+    "add-user": "node scripts/add-user.mjs",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",

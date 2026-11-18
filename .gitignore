@@ -5,3 +5,6 @@ out/
 *.tsbuildinfo
 next-env.d.ts
 .DS_Store
+data/.secret*
+data/users.json
+data/tile-cache/

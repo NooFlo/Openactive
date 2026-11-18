@@ -20,10 +20,38 @@ Stack (chosen deliberately from reliable open source projects):
 | GPX parsing | `fast-xml-parser` | Fast, zero-dependency XML → track points + elevation/time |
 | Page extraction | `cheerio` + schema.org JSON-LD | Title/description/GPX-link extraction from tourism pages |
 
+## Home server: accounts, privacy, offline trips
+
+Openactive is designed to **run on your own home server** (Raspberry Pi, NAS, mini PC, Docker on anything). Data, credentials, and tile caches never leave your network.
+
+### Household accounts
+
+- Simple username/password users you create locally. Passwords are scrypt-hashed (`data/users.json`), sessions are HMAC-signed cookies (`data/.secret`, both gitignored).
+- Accounts exist to separate users within a household — every member sees all prepared trips (shared household library), while ingest/prepare requires being signed in.
+- No email, no tracking, no external auth providers, nothing sent to third parties.
+
+```bash
+npm install
+npm run setup                      # generates data/.secret
+npm run add-user -- alice s3cret  # add household users
+npm run dev                        # or: npm run build && npm start, behind your reverse proxy
+```
+
+### Push route from desktop → mobile (offline trip flow)
+
+1. **Plan on desktop**: ingest a tour (URL or GPX paste), then hit **“Prepare trip for mobile.”**
+2. The server computes an offline bundle manifest for the track: OpenFreeMap vector tile set (zoom 11–15, 2 km buffer around the track, capped at 60k tiles + estimated size) and marks the trip as prepared.
+3. **On mobile**: tap **“Download prepared trip.”** The app lists prepared trips (`GET /api/sync/prepared`), then downloads the bundle (`GET /api/tours/<slug>/bundle`) and pulls every tile in the manifest from the **home server tile cache** (`GET /api/tiles/{z}/{x}/{y}.pbf`), which transparently fills its disk cache from OpenFreeMap on first request.
+4. Once the phone has the bundle + tiles, **no connectivity of any kind is needed on the trip** — not to the home server, not to the internet. The watch gets the route via Watch Connectivity from the phone.
+
+Privacy note: the trip reviews happen inside your LAN whenever you pre-download; the tile cache grows in `data/tile-cache/` and can be wiped at any time.
+
 ### Run
 
 ```bash
 npm install
+npm run setup
+npm run add-user -- <username> <password>
 npm run dev        # http://localhost:3000
 ```
 
@@ -46,7 +74,7 @@ Tours: `GET /api/tours` (list) and `GET /api/tours/<slug>` (full record). Storag
 - **Apple Watch**: **no maps on the watch.** Navigate the GPX track "Backtrack-style": black-background SwiftUI screen with the breadcrumb polyline, current position, heading cone, distance to next waypoint, and wrist-tap haptics on off-route deviation or waypoint approach. Built with MapKit SwiftUI (`Map`, `MapPolyline`, `UserAnnotation`), CoreLocation (`CLHeading`), and a HealthKit/WorkoutKit hiking workout session so background location stays alive with 4G-free battery discipline.
   - Note: Apple's Compass Backtrack UI has **no public API**; everything above uses only sanctioned frameworks. `WKInterfaceMap` is avoided (MapKit for SwiftUI covers watchOS).
 - **Transfer**: routes + downloaded regions go iPhone → Watch via Watch Connectivity; the watch works standalone (no iPhone in the field).
-- **Sync**: web → phone via signed public tour URLs (GPX + JSON), no accounts. If accounts/backend sync is added later, it is optional.
+- **Sync**: via your home server (see above): phone pulls prepared trips and offline tiles on Wi-Fi, then works fully offline. No cloud service, ever.
 
 ## License
 
