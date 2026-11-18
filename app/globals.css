@@ -24,6 +24,20 @@ body {
   border-radius: 6px !important;
 }
 
+.map-style-picker {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  z-index: 10;
+  padding: 6px 10px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 13px;
+  cursor: pointer;
+}
+
 .panel {
   background: var(--panel);
   border: 1px solid var(--border);
