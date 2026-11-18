@@ -8,3 +8,6 @@ next-env.d.ts
 data/.secret*
 data/users.json
 data/tile-cache/
+apple/.build/
+apple/.swiftpm/
+apple/build/
